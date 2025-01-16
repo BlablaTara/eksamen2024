@@ -1,5 +1,7 @@
 package com.example.eksamen2024.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class Station {
     private double latitude;
 
     @OneToMany(mappedBy = "station", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Drone> drones;
 
 

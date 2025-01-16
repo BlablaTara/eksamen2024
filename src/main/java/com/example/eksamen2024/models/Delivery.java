@@ -1,5 +1,6 @@
 package com.example.eksamen2024.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -20,11 +21,13 @@ public class Delivery {
     private LocalDateTime actualDeliveryTime;
 
     @ManyToOne
-    @JoinColumn(name = "drone_id", nullable = false)
+    @JoinColumn(name = "drone_id", nullable = true)
+    @JsonManagedReference
     private Drone drone;
 
     @OneToOne
     @JoinColumn(name = "pizza_id", nullable = false)
+    @JsonManagedReference
     private Pizza pizza;
 
     public Long getDeliveryId() {

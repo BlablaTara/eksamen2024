@@ -44,6 +44,7 @@ public class InitData implements CommandLineRunner {
         Pizza pizza3 = createPizza("Hawaii Pizza", 85);
         Pizza pizza4 = createPizza("Salat Pizza", 85);
         Pizza pizza5 = createPizza("Trés Fromage Pizza", 85);
+        Pizza pizza6 = createPizza("Børne Pizza", 65);
 
         // DRONER
         Drone drone1 = createDrone(station1);
@@ -58,6 +59,7 @@ public class InitData implements CommandLineRunner {
 
         createDelivery("Guldberggade, Nørrebronz", drone3, pizza4);
         createDelivery("Blågårds plads, OldHood", drone3, pizza5);
+        createDelivery("FrederiksHood, 00ExtraFancy", null, pizza6);
     }
 
     private Station createStation(double longitude, double latitude) {
@@ -93,6 +95,5 @@ public class InitData implements CommandLineRunner {
         delivery.setPizza(pizza);
 
         deliveryRepository.save(delivery);
-        System.out.println("Delivery initialized for pizza: " + pizza.getTitel() + " with drone UUID: " + drone.getSerialUuid());
     }
 }

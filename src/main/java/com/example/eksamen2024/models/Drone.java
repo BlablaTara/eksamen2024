@@ -1,5 +1,7 @@
 package com.example.eksamen2024.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -21,9 +23,11 @@ public class Drone {
 
     @ManyToOne
     @JoinColumn(name = "station_id", nullable = false)
+    @JsonBackReference
     private Station station;
 
     @OneToMany(mappedBy = "drone", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Delivery> deliveries;
 
     public Drone() {
