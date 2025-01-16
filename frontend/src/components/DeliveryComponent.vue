@@ -1,15 +1,35 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-// Ref til at holde deliveries data
-const deliveries = ref<any[]>([]);
+type Drone = {
+  serialUuid: string | null;
+};
 
-// Funktion til at hente deliveries fra backend
+type Pizza = {
+  titel: string;
+};
+
+type Delivery = {
+  deliveryId: number;
+  address: string;
+  expectedDeliveryTime: string;
+  drone: Drone | null; // Drone kan være null
+  pizza: Pizza;
+};
+
+
+const deliveries = ref<Delivery[]>([]);
+
+
 const fetchDeliveries = async () => {
   try {
     const response = await fetch('http://localhost:8080/api/deliveries');
     if (response.ok) {
-      deliveries.value = await response.json();  // Gem dataene i deliveries
+      const data: Delivery[] = await response.json();
+      deliveries.value = data.map(delivery => ({
+      ...delivery,
+        drone: delivery.drone || null,
+      }));
     } else {
       console.error('Fejl ved hentning af deliveries');
     }
@@ -27,10 +47,13 @@ onMounted(fetchDeliveries);
     <h1>Leveringsliste</h1>
     <ul>
       <!-- Loop gennem deliveries og vis dem -->
-      <li v-for="delivery in deliveries" :key="delivery.id">
+      <li v-for="delivery in deliveries" :key="delivery.deliveryId">
         <p><strong>Adresse:</strong> {{ delivery.address }}</p>
         <p><strong>Forventet leveringstid:</strong> {{ delivery.expectedDeliveryTime }}</p>
-        <p><strong>Drone UUID:</strong> {{ delivery.drone.serialUuid }}</p>
+        <p><strong>Drone UUID:</strong>
+          <!-- Hvis drone findes, vis dens UUID, ellers vis 'Ingen drone' -->
+          {{ delivery.drone ? 'Har Drone' : 'Mangler Drone' }}
+        </p>
         <p><strong>Pizza:</strong> {{ delivery.pizza.titel }}</p>
       </li>
     </ul>
