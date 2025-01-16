@@ -7,10 +7,7 @@ import com.example.eksamen2024.models.Station;
 import com.example.eksamen2024.repositories.DroneRepository;
 import com.example.eksamen2024.repositories.StationRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
@@ -30,31 +27,38 @@ public class DroneController {
     }
 
     @GetMapping("/api/drones")
-    public List<DroneDTO> getDrones() {
-        return droneRepository.findAll().stream()
-                .map(drone -> new DroneDTO(
-                        drone.getSerialUuid(),
-                        drone.getDroneStatus(),
-                        drone.getStation() != null ? drone.getStation().getStationId() : null
-                ))
-                .collect(Collectors.toList());
+    public ResponseEntity<List<DroneDTO>> getDrones() {
+        try {
+            List<DroneDTO> drones = droneRepository.findAll().stream()
+                    .map(drone -> new DroneDTO(
+                            drone.getSerialUuid(),
+                            drone.getDroneStatus(),
+                            drone.getStation() != null ? drone.getStation().getStationId() : null
+                    ))
+                    .collect(Collectors.toList());
+
+            if (drones.isEmpty()) {
+                return ResponseEntity.noContent().build(); // 204 No Content hvis der ikke er droner
+            }
+
+            return ResponseEntity.ok(drones);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null); // 500 Internal Server Error
+        }
     }
 
     @PostMapping("/api/drones/add")
-    public ResponseEntity<Drone> addDrone() {
+    public ResponseEntity<?> addDrone() {
         List<Station> stations = stationRepository.findAll();
 
         if (stations.isEmpty()) {
-            System.out.println("Ingen stationer i databasen!");
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body("Ingen stationer i databasen!");
         }
 
-        //Hvis der er 2 stationer med samme antal droner, vælger den, nbare den første som opfylder betingelserne.
+        // Hvis der er 2 stationer med samme antal droner, vælger den den første, som opfylder betingelserne.
         Station stationWithFewestDrones = stations.stream()
                 .min(Comparator.comparingInt(station -> station.getDrones().size()))
                 .orElseThrow(() -> new IllegalStateException("Fejl ved at finde station med færrest droner"));
-
-        System.out.println("Station valgt: " + stationWithFewestDrones.getStationId());
 
         Drone newDrone = new Drone(
                 UUID.randomUUID(),
@@ -64,10 +68,37 @@ public class DroneController {
         );
 
         droneRepository.save(newDrone);
-        System.out.println("Drone oprettet: " + newDrone);
-
-
-        return ResponseEntity.ok(newDrone);
+        return ResponseEntity.status(201).body(newDrone); // 201 Created
     }
 
+    @PostMapping("/api/drones/enable/{droneId}")
+    public ResponseEntity<Drone> enableDrone(@PathVariable Long droneId) {
+        // Find dronen med det givet ID
+        return droneRepository.findById(droneId)
+                .map(drone -> {
+                    // Skift status til "i drift"
+                    drone.setDroneStatus(DroneStatus.I_DRIFT);
+                    droneRepository.save(drone); // Gem ændringen i databasen
+                    return ResponseEntity.ok(drone); // Returner den opdaterede drone
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/api/drones/disable/{droneId}")
+    public ResponseEntity<Drone> disableDrone(@PathVariable Long droneId) {
+        // Find dronen med det givet ID
+        return droneRepository.findById(droneId)
+                .map(drone -> {
+                    // Skift status til "ude af drift"
+                    drone.setDroneStatus(DroneStatus.UDE_AF_DRIFT);
+                    droneRepository.save(drone); // Gem ændringen i databasen
+                    return ResponseEntity.ok(drone); // Returner den opdaterede drone
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build()); // Hvis dronen ikke findes, returnér 404
+    }
 }
+
+
+
+
+
