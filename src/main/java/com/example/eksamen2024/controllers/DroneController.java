@@ -45,6 +45,7 @@ public class DroneController {
         List<Station> stations = stationRepository.findAll();
 
         if (stations.isEmpty()) {
+            System.out.println("Ingen stationer i databasen!");
             return ResponseEntity.badRequest().body(null);
         }
 
@@ -52,6 +53,8 @@ public class DroneController {
         Station stationWithFewestDrones = stations.stream()
                 .min(Comparator.comparingInt(station -> station.getDrones().size()))
                 .orElseThrow(() -> new IllegalStateException("Fejl ved at finde station med færrest droner"));
+
+        System.out.println("Station valgt: " + stationWithFewestDrones.getStationId());
 
         Drone newDrone = new Drone(
                 UUID.randomUUID(),
@@ -63,13 +66,6 @@ public class DroneController {
         droneRepository.save(newDrone);
         System.out.println("Drone oprettet: " + newDrone);
 
-       /* DroneDTO droneDTO= new DroneDTO(
-                newDrone.getSerialUuid(),
-                newDrone.getDroneStatus(),
-                newDrone.getStation() !=null ? newDrone.getStation().getStationId() : null
-        );
-
-        */
 
         return ResponseEntity.ok(newDrone);
     }
