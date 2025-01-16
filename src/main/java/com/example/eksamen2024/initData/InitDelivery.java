@@ -1,4 +1,4 @@
-package com.example.eksamen2024.initData;
+/*package com.example.eksamen2024.initData;
 
 import com.example.eksamen2024.models.Delivery;
 import com.example.eksamen2024.models.Drone;
@@ -57,3 +57,5 @@ public class InitDelivery implements CommandLineRunner {
         System.out.println("Delivery initialized with address: " + delivery.getAddress());
     }
 }
+
+ */

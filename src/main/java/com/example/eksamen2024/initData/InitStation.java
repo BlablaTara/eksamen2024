@@ -1,4 +1,4 @@
-package com.example.eksamen2024.initData;
+/*package com.example.eksamen2024.initData;
 
 import com.example.eksamen2024.models.Station;
 import com.example.eksamen2024.repositories.StationRepository;
@@ -33,3 +33,5 @@ public class InitStation implements CommandLineRunner {
         stationRepository.save(station);
     }
 }
+
+ */

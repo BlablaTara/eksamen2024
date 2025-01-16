@@ -1,4 +1,4 @@
-package com.example.eksamen2024.initData;
+/*package com.example.eksamen2024.initData;
 
 import com.example.eksamen2024.models.Drone;
 import com.example.eksamen2024.models.DroneStatus;
@@ -50,3 +50,5 @@ public class InitDrone implements CommandLineRunner {
         System.out.println("Drone initialized with serial UUID: " + drone.getSerialUuid());
     }
 }
+
+ */
