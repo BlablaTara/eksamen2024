@@ -96,6 +96,20 @@ public class DroneController {
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build()); // Hvis dronen ikke findes, returnér 404
     }
+
+    @PostMapping("/api/drones/retire/{droneId}")
+    public ResponseEntity<Drone> retireDrone(@PathVariable Long droneId) {
+
+        return droneRepository.findById(droneId)
+                .map(drone -> {
+
+                    drone.setDroneStatus(DroneStatus.UDFASET);
+                    droneRepository.save(drone); // Gem ændringen i databasen
+                    return ResponseEntity.ok(drone); // Returner den opdaterede drone
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build()); // Hvis dronen ikke findes, returnér 404
+    }
+
 }
 
 

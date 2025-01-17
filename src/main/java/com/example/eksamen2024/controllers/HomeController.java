@@ -1,4 +1,4 @@
-package com.example.eksamen2024.controllers;
+/*package com.example.eksamen2024.controllers;
 
 import com.example.eksamen2024.models.Delivery;
 import com.example.eksamen2024.repositories.DeliveryRepository;
@@ -23,3 +23,5 @@ public class HomeController {
         return deliveryRepository.findAll();
     }
 }
+
+ */

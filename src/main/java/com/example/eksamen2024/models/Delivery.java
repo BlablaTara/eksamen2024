@@ -17,7 +17,6 @@ public class Delivery {
 
     @Column(nullable = false)
     private LocalDateTime expectedDeliveryTime;
-
     private LocalDateTime actualDeliveryTime;
 
     @ManyToOne
