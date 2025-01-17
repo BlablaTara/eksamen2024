@@ -1,9 +1,9 @@
 @import './base.css';
 
 #app {
-  width: 100%; /* Gør #app bred nok til at fylde hele skærmens bredde */
-  margin: 0; /* Fjern margin for at undgå ekstra luft */
-  padding: 0 2rem; /* Behold lidt padding på siderne, så det ikke ligger helt op ad kanten */
+  width: 100%;
+  margin: 0;
+  padding: 0 2rem;
   font-weight: normal;
 }
 
@@ -31,7 +31,7 @@ a,
   #app {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Sørg for at #app fylder hele skærmens bredde */
-    padding: 0 2rem; /* Padding på siderne for at give lidt luft */
+    width: 100%;
+    padding: 0 2rem;
   }
 }

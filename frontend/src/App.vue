@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <img alt="Pizza logo" class="logo" src="@/assets/Pizzalogo.png" width="125" height="125" />
+    <img alt="Pizza logo" class="logo" src="@/assets/Pizzalogo.png" width="200" height="200" />
 
     <div class="wrapper">
 

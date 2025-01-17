@@ -97,8 +97,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="deliveryList">
     <h1>Leveringsliste</h1>
+
     <div v-if="deliveries.length === 0">
       <p>Der er ingen leveringer at vise.</p>
     </div>
@@ -128,60 +129,63 @@ onUnmounted(() => {
 
 
 <style scoped>
-h1 {
-  text-align: center;
-  color: #2c3e50;
+.deliveryList {
+  width: 40%;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 16px;
-  margin: 8px 0;
+  padding: 20px 30px; /* Øg padding for at gøre elementerne bredere og give mere luft */
+  margin: 10px 0; /* Øg margin mellem elementerne */
   background: #f9f9f9;
+  width: 100%; /* Gør listeelementerne bredere */
+  box-sizing: border-box; /* Sørg for at padding ikke påvirker bredden */
 }
 
-p {
-  margin: 4px 0;
-}
-
-strong {
-  color: #34495e;
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px; /* Giv lidt ekstra plads under overskriften */
 }
 
 button {
-  font-size: 16px; /* Øg tekststørrelsen */
-  padding: 12px 24px; /* Gør knappen større ved at øge polstringen */
-  border: 2px solid #013601; /* Sætter knap-grænsen til grøn */
-  background-color: #9ade9a; /* Hvid baggrundsfarve */
-  color: #013601; /* Grønt tekstfarve */
-  border-radius: 8px; /* Runde hjørner */
-  cursor: pointer; /* Ændre markøren til pointer, når den er over knappen */
-  transition: background-color 0.3s, color 0.3s; /* Tilføj en overgangseffekt */
+  font-size: 16px;
+  padding: 12px 24px;
+  border: 2px solid #013601;
+  background-color: #9ade9a;
+  color: #013601;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 button:hover {
-  background-color: #427c42; /* Grøn baggrund når du hover over knappen */
-  color: white; /* Hvid tekstfarve ved hover */
+  background-color: #427c42;
+  color: white;
 }
+
 button.inactive {
   font-size: 16px;
   padding: 12px 24px;
-  border: 2px solid #7c7a7a; /* Grå kant */
-  background-color: #f0f0f0; /* Lys grå baggrund */
-  color: #7c7a7a; /* Grå tekstfarve */
+  border: 2px solid #7c7a7a;
+  background-color: #f0f0f0;
+  color: #7c7a7a;
   border-radius: 8px;
-  cursor: not-allowed; /* Ændre markøren til "not allowed" */
+  cursor: not-allowed;
 }
 
 button.inactive:hover {
   background-color: #f0f0f0;
-  color: #7c7a7a; /* Ingen ændring ved hover */
+  color: #7c7a7a;
 }
 
 </style>
