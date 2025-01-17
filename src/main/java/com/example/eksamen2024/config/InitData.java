@@ -53,11 +53,11 @@ public class InitData implements CommandLineRunner {
 
         // LEVERINGER
         createDelivery("1234 Pizza Street, Pizza City", drone1, pizza1);
-        createDelivery("Kastrupvej, LorteØen", drone1, pizza3);
+        createDelivery("Kastrupvej, LorteØen", null, pizza3);
 
         createDelivery("Saxogade, FancyStreet", drone2, pizza2);
 
-        createDelivery("Guldberggade, Nørrebronz", drone3, pizza4);
+        createDelivery("Guldberggade, Nørrebronz", null, pizza4);
         createDelivery("Blågårds plads, OldHood", drone3, pizza5);
         createDelivery("FrederiksHood, 00ExtraFancy", null, pizza6);
     }

@@ -111,13 +111,21 @@ onUnmounted(() => {
           <span v-if="!delivery.drone">Mangler Drone</span>
           <span v-else>Afventer Levering</span>
         </p>
+
+        <!-- Aktiv knap, hvis der ikke er tildelt en drone -->
         <button v-if="!delivery.drone" @click="scheduleDelivery(delivery.deliveryId)">
           Tildel Drone
+        </button>
+
+        <!-- Inaktiv knap, hvis der allerede er tildelt en drone -->
+        <button v-else class="inactive" v-bind:title="'Drone allerede tildelt'">
+          Drone Tildelt
         </button>
       </li>
     </ul>
   </div>
 </template>
+
 
 <style scoped>
 h1 {
@@ -145,4 +153,35 @@ p {
 strong {
   color: #34495e;
 }
+
+button {
+  font-size: 16px; /* Øg tekststørrelsen */
+  padding: 12px 24px; /* Gør knappen større ved at øge polstringen */
+  border: 2px solid #013601; /* Sætter knap-grænsen til grøn */
+  background-color: #9ade9a; /* Hvid baggrundsfarve */
+  color: #013601; /* Grønt tekstfarve */
+  border-radius: 8px; /* Runde hjørner */
+  cursor: pointer; /* Ændre markøren til pointer, når den er over knappen */
+  transition: background-color 0.3s, color 0.3s; /* Tilføj en overgangseffekt */
+}
+
+button:hover {
+  background-color: #427c42; /* Grøn baggrund når du hover over knappen */
+  color: white; /* Hvid tekstfarve ved hover */
+}
+button.inactive {
+  font-size: 16px;
+  padding: 12px 24px;
+  border: 2px solid #7c7a7a; /* Grå kant */
+  background-color: #f0f0f0; /* Lys grå baggrund */
+  color: #7c7a7a; /* Grå tekstfarve */
+  border-radius: 8px;
+  cursor: not-allowed; /* Ændre markøren til "not allowed" */
+}
+
+button.inactive:hover {
+  background-color: #f0f0f0;
+  color: #7c7a7a; /* Ingen ændring ved hover */
+}
+
 </style>
