@@ -1,4 +1,4 @@
-package com.example.eksamen2024.config;
+/*package com.example.eksamen2024.config;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
@@ -30,9 +30,16 @@ public class GlobalExeptionHandler {
         return new ResponseEntity<>("GL: Ressourcen blev ikke fundet: " + ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    // Håndtering af BadRequestException (400)
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
+        return new ResponseEntity<>("GL: Fejl ved hentning af leveringskø: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<String> handleBadRequestException(BadRequestException ex) {
         return new ResponseEntity<>("GL: Forkert anmodning: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
 }
+
+ */
