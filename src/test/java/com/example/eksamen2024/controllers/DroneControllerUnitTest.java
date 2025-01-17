@@ -40,10 +40,8 @@ class DroneControllerUnitTest {
         // Arrange: Ingen stationer i databasen
         when(stationRepository.findAll()).thenReturn(new ArrayList<>());
 
-        // Act
         ResponseEntity<?> response = droneController.addDrone();
 
-        // Assert
         assertEquals(400, response.getStatusCodeValue());
         assertEquals("Ingen stationer i databasen!", response.getBody());
     }

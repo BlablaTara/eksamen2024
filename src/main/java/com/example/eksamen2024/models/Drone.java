@@ -40,6 +40,10 @@ public class Drone {
         this.deliveries = deliveries;
     }
 
+    public Drone(UUID serialUuid, DroneStatus droneStatus) {
+
+    }
+
 
     public Long getDroneId() {
         return droneId;

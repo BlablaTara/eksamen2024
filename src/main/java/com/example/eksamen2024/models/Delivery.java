@@ -29,6 +29,13 @@ public class Delivery {
     @JsonManagedReference
     private Pizza pizza;
 
+    public Delivery(Long deliveryId, Drone drone, LocalDateTime expectedDeliveryTime, LocalDateTime actualDeliveryTime) {
+    }
+
+    public Delivery() {
+
+    }
+
     public Long getDeliveryId() {
         return deliveryId;
     }

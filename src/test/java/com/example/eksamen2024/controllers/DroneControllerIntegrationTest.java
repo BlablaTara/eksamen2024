@@ -33,14 +33,11 @@ class DroneControllerIntegrationTest {
     @Autowired
     private StationRepository stationRepository;
 
-    @Autowired
-    private DroneRepository droneRepository;
 
     Station station = new Station();
 
     @BeforeEach
     void setUp() {
-        //Station station = new Station();
         station.setStationId(1L);
         station.setDrones(new ArrayList<>());
         stationRepository.saveAndFlush(station);
