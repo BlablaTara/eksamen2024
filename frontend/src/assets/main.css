@@ -1,9 +1,9 @@
 @import './base.css';
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%; /* Gør #app bred nok til at fylde hele skærmens bredde */
+  margin: 0; /* Fjern margin for at undgå ekstra luft */
+  padding: 0 2rem; /* Behold lidt padding på siderne, så det ikke ligger helt op ad kanten */
   font-weight: normal;
 }
 
@@ -24,12 +24,14 @@ a,
 @media (min-width: 1024px) {
   body {
     display: flex;
-    place-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Sørg for at #app fylder hele skærmens bredde */
+    padding: 0 2rem; /* Padding på siderne for at give lidt luft */
   }
 }

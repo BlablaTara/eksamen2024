@@ -13,11 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.UUID;
 
 @CrossOrigin(origins = {"http://127.0.0.1:5173", "http://localhost:5173"})
 @RestController
@@ -108,7 +105,8 @@ public class DeliveryController {
     }
 
     @PostMapping("/api/deliveries/schedule")
-    public ResponseEntity<?> scheduleDelivery(@RequestParam(value = "droneId", required = false) Long droneId) throws BadRequestException {
+    public ResponseEntity<?> scheduleDelivery(@RequestBody Map<String, Long> requestBody) throws BadRequestException {
+        Long droneId = requestBody.get("droneId");
         try {
             List<Delivery> deliveriesWithoutDrone = deliveryRepository.findByDroneIsNull();
             if (deliveriesWithoutDrone.isEmpty()) {
@@ -128,7 +126,7 @@ public class DeliveryController {
             } else {
                 // Ellers vælg en tilfældig drone, der er i drift og ikke tildelt en levering
                 drone = droneRepository.findAll().stream()
-                        .filter(d -> d.getDroneStatus() == DroneStatus.I_DRIFT && (d.getDeliveries() == null || d.getDeliveries().isEmpty()))
+                        .filter(d -> d.getDroneStatus() == DroneStatus.I_DRIFT)
                         .findFirst()
                         .orElseThrow(() -> new BadRequestException("Der er ingen tilgængelige droner i drift."));
             }
